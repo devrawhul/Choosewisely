@@ -3,9 +3,10 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Valentine Ask</title>
+  <title>Will You Be My Valentine?</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
+    /* Reset and Base Styles */
     * {
       margin: 0;
       padding: 0;
@@ -14,28 +15,25 @@
     }
 
     body {
-      background-color: #111;
-      color: #fff;
+      background-color: #111; /* Always dark */
+      color: #fff; /* Always white text */
       display: flex;
       justify-content: center;
       align-items: center;
       flex-direction: column;
       min-height: 100vh;
       padding: 20px;
-      transition: background-color 0.5s, color 0.5s;
+      /* Removed transition as background won't change */
     }
 
-    body.light {
-      background-color: #f9f9f9;
-      color: #111;
-    }
-
+    /* Headings */
     h1 {
       font-size: 2.2rem;
       margin-bottom: 40px;
       text-align: center;
     }
 
+    /* Buttons */
     .button-container {
       display: flex;
       gap: 20px;
@@ -65,28 +63,14 @@
     #noButton {
       background-color: #444;
       color: white;
+      transition: none; /* Removed transition for instant move */
     }
 
     #noButton:hover {
       background-color: #666;
     }
 
-    #darkModeToggle {
-      position: absolute;
-      top: 20px;
-      right: 20px;
-      padding: 8px 16px;
-      background: #888;
-      color: #fff;
-      border-radius: 6px;
-      font-size: 0.9rem;
-    }
-
-    body.light #darkModeToggle {
-      background: #555;
-      color: #fff;
-    }
-
+    /* Emoji Image */
     .emoji-container {
       margin-bottom: 40px;
       max-width: 250px;
@@ -100,6 +84,7 @@
       height: auto;
     }
 
+    /* Confetti Canvas */
     canvas {
       position: absolute;
       top: 0;
@@ -107,7 +92,7 @@
       pointer-events: none;
     }
 
-    /* Responsive */
+    /* Mobile Responsive Optimizations */
     @media (max-width: 500px) {
       h1 {
         font-size: 1.6rem;
@@ -130,7 +115,7 @@
   <h1>Will You Go on a Date With Me?</h1>
 
   <div class="emoji-container">
-    <img src="https://i.ibb.co/XZn9zyjb/eye.png" alt="eye" class="eye-img">
+    <img src="https://i.ibb.co/XZn9zyjb/eye.png" alt="Shy Asking Emoji" class="eye-img">
   </div>
 
   <div class="button-container">
@@ -145,14 +130,19 @@
     const yesButton = document.getElementById("yesButton");
     const noButton = document.getElementById("noButton");
     const imageContainer = document.querySelector(".emoji-container");
-    const darkModeToggle = document.getElementById("darkModeToggle");
+    // Removed reference to darkModeToggle
 
-    // Dark/light mode toggle
-    darkModeToggle.addEventListener("click", () => {
-      document.body.classList.toggle("light");
-    });
+    // Function to move the 'No' button
+    const moveNoButton = () => {
+      const x = Math.random() * (window.innerWidth - noButton.clientWidth);
+      const y = Math.random() * (window.innerHeight - noButton.clientHeight);
+      
+      noButton.style.position = "absolute";
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    };
 
-    // Yes button click
+    // Yes button click logic (unchanged)
     yesButton.addEventListener("click", () => {
       yesButton.style.display = 'none';
       noButton.style.display = 'none';
@@ -199,13 +189,11 @@
       document.body.appendChild(container);
     });
 
-    // No button hover
-    noButton.addEventListener("mouseover", () => {
-      const x = Math.random() * (window.innerWidth - noButton.clientWidth);
-      const y = Math.random() * (window.innerHeight - noButton.clientHeight);
-      noButton.style.position = "absolute";
-      noButton.style.left = `${x}px`;
-      noButton.style.top = `${y}px`;
+    // No button "untappable" logic:
+    noButton.addEventListener("mouseover", moveNoButton);
+    noButton.addEventListener("touchstart", (e) => {
+        e.preventDefault(); 
+        moveNoButton();
     });
   </script>
 </body>
