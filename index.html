@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Valentine Ask</title>
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: "Poppins", sans-serif;
+    }
+
+    body {
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      min-height: 100vh;
+      padding: 20px;
+      transition: background-color 0.5s, color 0.5s;
+    }
+
+    body.light {
+      background-color: #f9f9f9;
+      color: #111;
+    }
+
+    h1 {
+      font-size: 2.2rem;
+      margin-bottom: 40px;
+      text-align: center;
+    }
+
+    .button-container {
+      display: flex;
+      gap: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    button {
+      padding: 12px 30px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 8px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    #yesButton {
+      background-color: #ff4081;
+      color: white;
+    }
+
+    #yesButton:hover {
+      background-color: #e73370;
+      transform: scale(1.1);
+    }
+
+    #noButton {
+      background-color: #444;
+      color: white;
+    }
+
+    #noButton:hover {
+      background-color: #666;
+    }
+
+    #darkModeToggle {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      padding: 8px 16px;
+      background: #888;
+      color: #fff;
+      border-radius: 6px;
+      font-size: 0.9rem;
+    }
+
+    body.light #darkModeToggle {
+      background: #555;
+      color: #fff;
+    }
+
+    .emoji-container {
+      margin-bottom: 40px;
+      max-width: 250px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+    }
+
+    .emoji-container img {
+      width: 100%;
+      height: auto;
+    }
+
+    canvas {
+      position: absolute;
+      top: 0;
+      left: 0;
+      pointer-events: none;
+    }
+
+    /* Responsive */
+    @media (max-width: 500px) {
+      h1 {
+        font-size: 1.6rem;
+        margin-bottom: 30px;
+      }
+
+      button {
+        font-size: 1rem;
+        padding: 10px 20px;
+      }
+
+      .emoji-container {
+        max-width: 180px;
+        margin-bottom: 30px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <button id="darkModeToggle">Toggle Dark/Light</button>
+
+  <h1>Will You Go on a Date With Me?</h1>
+
+  <div class="emoji-container">
+    <img src="https://i.ibb.co/XZn9zyjb/eye.png" alt="eye" class="eye-img">
+  </div>
+
+  <div class="button-container">
+    <button id="yesButton">Yes 💖</button>
+    <button id="noButton">No 😢</button>
+  </div>
+
+  <canvas id="confetti-canvas"></canvas>
+
+  <script src="https://cdn.jsdelivr.net/npm/confetti-js@0.0.18/dist/index.min.js"></script>
+  <script>
+    const yesButton = document.getElementById("yesButton");
+    const noButton = document.getElementById("noButton");
+    const imageContainer = document.querySelector(".emoji-container");
+    const darkModeToggle = document.getElementById("darkModeToggle");
+
+    // Dark/light mode toggle
+    darkModeToggle.addEventListener("click", () => {
+      document.body.classList.toggle("light");
+    });
+
+    // Yes button click
+    yesButton.addEventListener("click", () => {
+      yesButton.style.display = 'none';
+      noButton.style.display = 'none';
+      imageContainer.style.display = 'none';
+      document.querySelector('h1').style.display = 'none';
+
+      const confettiElement = document.getElementById('confetti-canvas');
+      const confettiSettings = {
+        target: confettiElement,
+        max: 500,
+        size: 1,
+        animate: true,
+        props: ['circle', 'square', 'triangle', 'line'],
+        colors: [[165,104,246],[230,61,135],[0,199,228],[253,214,126]],
+        clock: 25,
+        rotate: true,
+        start_from_edge: true,
+        respawn: true
+      };
+      const confetti = new ConfettiGenerator(confettiSettings);
+      confetti.render();
+
+      const container = document.createElement('div');
+      container.style.position = 'absolute';
+      container.style.top = '50%';
+      container.style.left = '50%';
+      container.style.transform = 'translate(-50%, -50%)';
+      container.style.textAlign = 'center';
+
+      const line1 = document.createElement('p');
+      line1.innerText = 'Congrats you made the right choice 🎉';
+      line1.style.fontSize = '2rem';
+      line1.style.fontWeight = 'bold';
+      line1.style.margin = '0 0 10px 0';
+
+      const line2 = document.createElement('p');
+      line2.innerText = 'DM me the time and venue 😉';
+      line2.style.fontSize = '1.8rem';
+      line2.style.fontWeight = 'normal';
+      line2.style.margin = '0';
+
+      container.appendChild(line1);
+      container.appendChild(line2);
+      document.body.appendChild(container);
+    });
+
+    // No button hover
+    noButton.addEventListener("mouseover", () => {
+      const x = Math.random() * (window.innerWidth - noButton.clientWidth);
+      const y = Math.random() * (window.innerHeight - noButton.clientHeight);
+      noButton.style.position = "absolute";
+      noButton.style.left = `${x}px`;
+      noButton.style.top = `${y}px`;
+    });
+  </script>
+</body>
+</html>
