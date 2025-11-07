@@ -3,10 +3,9 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Will You Go on a Date With Me?</title>
+  <title>Momo Khane Chalein?</title>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&display=swap" rel="stylesheet">
   <style>
-    /* Reset and Base Styles */
     * {
       margin: 0;
       padding: 0;
@@ -14,25 +13,28 @@
       font-family: "Poppins", sans-serif;
     }
 
-    body {
-      background-color: #111; /* Always dark */
-      color: #fff; /* Always white text */
-      display: flex;
-      justify-content: center; /* Center horizontally */
-      align-items: center; /* Center vertically */
-      flex-direction: column;
-      min-height: 100vh; /* Ensures full viewport height */
-      padding: 20px; /* Padding for small screens, acts as spacing */
+    html, body {
+      height: 100vh;
+      overflow: hidden; /* prevent scrolling */
     }
 
-    /* Headings */
+    body {
+      background-color: #111;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      padding: 20px;
+      position: relative;
+    }
+
     h1 {
       font-size: 2.2rem;
       margin-bottom: 40px;
       text-align: center;
     }
 
-    /* Buttons */
     .button-container {
       display: flex;
       gap: 20px;
@@ -62,43 +64,26 @@
     #noButton {
       background-color: #444;
       color: white;
-      transition: none; /* Removed transition for instant move */
+      transition: none;
     }
 
     #noButton:hover {
       background-color: #666;
     }
 
-    /* Emoji Image */
     .emoji-container {
       margin-bottom: 40px;
       max-width: 250px;
       width: 100%;
       display: flex;
       justify-content: center;
-      animation: pulse 3s infinite ease-in-out;
     }
 
     .emoji-container img {
       width: 100%;
       height: auto;
-      display: block; /* Removes extra space below image */
     }
 
-    /* Keyframe animation for the subtle zoom */
-    @keyframes pulse {
-      0% {
-        transform: scale(1);
-      }
-      50% {
-        transform: scale(1.02); /* Slightly zoom in */
-      }
-      100% {
-        transform: scale(1);
-      }
-    }
-
-    /* Confetti Canvas */
     canvas {
       position: absolute;
       top: 0;
@@ -106,7 +91,6 @@
       pointer-events: none;
     }
 
-    /* Mobile Responsive Optimizations */
     @media (max-width: 500px) {
       h1 {
         font-size: 1.6rem;
@@ -122,26 +106,18 @@
         max-width: 180px;
         margin-bottom: 30px;
       }
-
-      /* Adjust font sizes for the success message on mobile */
-      .success-message-line1 {
-        font-size: 1.5rem !important; /* Smaller for mobile */
-      }
-      .success-message-line2 {
-        font-size: 1.2rem !important; /* Smaller for mobile */
-      }
     }
   </style>
 </head>
 <body>
-  <h1>Will You Go on a Date With Me?</h1>
+  <h1>Momo khane chalein?</h1>
 
   <div class="emoji-container">
-    <img src="https://i.ibb.co/XZn9zyjb/eye.png" alt="Shy Asking Emoji" class="eye-img">
+    <img src="https://i.ibb.co/XZn9zyjb/eye.png" alt="Shy Emoji" class="eye-img">
   </div>
 
   <div class="button-container">
-    <button id="yesButton">Yes 💖</button>
+    <button id="yesButton">Yes 😋</button>
     <button id="noButton">No 😢</button>
   </div>
 
@@ -153,17 +129,14 @@
     const noButton = document.getElementById("noButton");
     const imageContainer = document.querySelector(".emoji-container");
 
-    // Function to move the 'No' button
     const moveNoButton = () => {
       const x = Math.random() * (window.innerWidth - noButton.clientWidth);
       const y = Math.random() * (window.innerHeight - noButton.clientHeight);
-      
       noButton.style.position = "absolute";
       noButton.style.left = `${x}px`;
       noButton.style.top = `${y}px`;
     };
 
-    // Yes button click logic (unchanged)
     yesButton.addEventListener("click", () => {
       yesButton.style.display = 'none';
       noButton.style.display = 'none';
@@ -194,30 +167,44 @@
       container.style.textAlign = 'center';
 
       const line1 = document.createElement('p');
-      line1.innerText = 'Congrats you made the right choice 🎉';
+      line1.innerText = 'Yayy! Momo party confirmed 🎉';
       line1.style.fontSize = '2rem';
       line1.style.fontWeight = 'bold';
       line1.style.margin = '0 0 10px 0';
-      line1.classList.add('success-message-line1'); /* Add class for mobile styling */
-
 
       const line2 = document.createElement('p');
-      line2.innerText = 'DM me the time and venue 😉';
+      line2.innerText = 'DM me the time and place 😉';
       line2.style.fontSize = '1.8rem';
       line2.style.fontWeight = 'normal';
-      line2.style.margin = '0';
-      line2.classList.add('success-message-line2'); /* Add class for mobile styling */
+      line2.style.margin = '0 0 20px 0';
 
+      const chatBtn = document.createElement('a');
+      chatBtn.href = 'https://wa.me/919319400647?text=Chalo%20chale%20%F0%9F%98%8B';
+      chatBtn.target = '_blank';
+      chatBtn.innerText = 'Chat Now 💬';
+      chatBtn.style.display = 'inline-block';
+      chatBtn.style.marginTop = '20px';
+      chatBtn.style.padding = '12px 30px';
+      chatBtn.style.backgroundColor = '#25D366';
+      chatBtn.style.color = '#fff';
+      chatBtn.style.textDecoration = 'none';
+      chatBtn.style.borderRadius = '8px';
+      chatBtn.style.fontSize = '1.2rem';
+      chatBtn.style.fontWeight = '600';
+      chatBtn.style.transition = 'background 0.3s ease';
+      chatBtn.addEventListener('mouseover', () => {
+        chatBtn.style.backgroundColor = '#1ea955';
+      });
 
       container.appendChild(line1);
       container.appendChild(line2);
+      container.appendChild(chatBtn);
       document.body.appendChild(container);
     });
 
-    // No button "untappable" logic:
     noButton.addEventListener("mouseover", moveNoButton);
     noButton.addEventListener("touchstart", (e) => {
-        e.preventDefault(); 
+        e.preventDefault();
         moveNoButton();
     });
   </script>
